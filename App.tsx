@@ -331,11 +331,8 @@ export default function App() {
         <div className="absolute inset-0 bg-grid opacity-[0.02] pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10 text-center">
           <div className="text-2xl font-bold font-display tracking-tight mb-8">
-            ACS
+            Aye Chan San
           </div>
-          <p className="text-slate-400 max-w-md mx-auto mb-12">
-            Built with React, TypeScript, Tailwind CSS, and powered by Gemini for interactive intelligence.
-          </p>
           <div className="flex justify-center gap-6 mb-12">
             <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="p-4 bg-slate-900 rounded-2xl hover:bg-slate-800 transition-colors"><Linkedin /></a>
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="p-4 bg-slate-900 rounded-2xl hover:bg-slate-800 transition-colors"><Github /></a>
