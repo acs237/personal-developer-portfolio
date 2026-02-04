@@ -25,7 +25,7 @@ export interface JourneyItem {
   title: string;
   company: string;
   description: string;
-  type: 'education' | 'work' | 'milestone';
+  type: 'education' | 'work' | 'milestone' | 'extracurricular';
 }
 
 export interface Message {

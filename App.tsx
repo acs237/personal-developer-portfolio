@@ -15,7 +15,8 @@ import {
   Zap,
   Globe,
   Terminal,
-  Compass
+  Compass,
+  CandyCane
 } from 'lucide-react';
 import { PROJECTS, CERTIFICATIONS, JOURNEY } from './constants';
 import { GoogleGenAI } from '@google/genai';
@@ -29,7 +30,7 @@ const ProjectCard: React.FC<{ project: typeof PROJECTS[0], index: number }> = ({
     <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center py-16 group`}>
       <div className="w-full lg:w-3/5 relative overflow-hidden rounded-2xl shadow-2xl bg-slate-900 border border-slate-800">
         <video 
-          className="w-full h-full object-cover aspect-video opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
           autoPlay 
           muted 
           loop 
@@ -91,7 +92,7 @@ const Timeline: React.FC = () => (
     {JOURNEY.map((item, idx) => (
       <div key={idx} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
         <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-[.is-active]:bg-indigo-500 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-          {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Terminal size={18} /> : <Zap size={18} />}
+          {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Terminal size={18} /> : item.type === 'milestone' ? <Zap size={18} /> : item.type === 'extracurricular' ? <CandyCane size={18} /> : <GraduationCap size={18} />}
         </div>
         <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between space-x-2 mb-1">
@@ -256,7 +257,9 @@ export default function App() {
             Aye Chan San
           </h1>
           <div className="max-w-3xl mx-auto space-y-4">
-            <p className="text-2xl font-medium text-slate-700">Bachelor of Advanced Computer Science (Honours) - BAdvCompSci(Hons)</p>
+            <p className="text-2xl font-medium text-slate-700">Bachelor of Advanced Computer Science (Honours)</p>
+            <p className="text-2xl font-medium text-slate-700">UNSW Sydney</p>
+            
             <p className="text-xl text-slate-500 leading-relaxed">
               Final-year student with a strong academic record (WAM 84.19) and a passion for developing impactful software solutions.
             </p>
@@ -278,7 +281,6 @@ export default function App() {
           <div className="mb-20">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Technical Showcase</h2>
             <div className="w-20 h-1.5 bg-indigo-600 rounded-full mb-8" />
-            <p className="text-xl text-slate-600 max-w-2xl">A curated selection of engineering challenges I've tackled, ranging from modern web development to complex system integration.</p>
           </div>
           <div className="divide-y divide-slate-100">
             {PROJECTS.map((project, idx) => (

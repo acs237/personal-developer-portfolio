@@ -5,7 +5,7 @@ export const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Customisable Personal Portfolio Website',
-    description: 'A website that allows the user to customise their contents in their own portfolio website.',
+    description: 'A website that allows the user to customise their contents in their own portfolio website. Clear differentiation between public reader and admin interface.',
     videoUrl: '/assets/videos/PMKPortfolio.mp4',
     tags: ['Tailwind CSS', 'TypeScript', 'React', 'Vite', 'Supabase'],
     links: { github: 'https://github.com/acs237/phyoe-min-khant', live: 'https://phyoe-min-khant.vercel.app' }
@@ -59,31 +59,80 @@ export const CERTIFICATIONS: Certification[] = [
 
 export const JOURNEY: JourneyItem[] = [
   {
-    year: '2022 - Present',
-    title: 'Software Engineer',
-    company: 'Tech Solutions Ltd',
-    description: 'Developing high-performance software and scalable cloud solutions.',
+    year: '2025 Dec',
+    title: 'Lyrathon - Hackathon',
+    company: 'Lyra',
+    description: 'Solved a problem that accelerates the job application process for both job seekers and recruiters.',
     type: 'work'
   },
   {
-    year: '2018 - 2022',
-    title: 'Bachelor of Advanced Computer Science (Honours) - BAdvCompSci(Hons)',
-    company: 'University',
-    description: 'Specialized in Advanced Computer Science with an Honours thesis in Cloud Infrastructure.',
+    year: '2025 Sep - 2025 Dec',
+    title: 'Casual Academic Tutor',
+    company: 'UNSW Computer Science and Engineering',
+    description: 'Tutored students in Computer Vision course. Helped them understand the concepts and solve the problems.',
+    type: 'work'
+  },
+  {
+    year: '2025 Aug - Present',
+    title: 'Acapella Group - Alto Vocalist',
+    company: 'UNSW Vocallective',
+    description: 'Joined the acapella group as an alto vocalist. Practiced and performed various songs with the group.',
+    type: 'extracurricular'
+  },
+  {
+    year: '2025 Jun - 2025 Aug',
+    title: 'Internship - Software Development',
+    company: 'JobGen.AI',
+    description: 'Automate the job application process for job seekers. Helped them find the best jobs for them.',
+    type: 'work'
+  },
+  {
+    year: '2025 May - Present',
+    title: 'Retail Operator',
+    company: 'Australia Post',
+    description: 'Handle customer inquiries and transactions. Constantly learning and growing in the field of customer service and retail operations.',
+    type: 'work'
+  },
+  {
+    year: '2023 Oct - 2025 Oct',
+    title: 'Executive Committee Member',
+    company: 'UNSW Myanmar Students\' Society',
+    description: 'Organised various events for the Myanmar community at UNSW. Helped them integrate into the Australian society.',
+    type: 'extracurricular'
+  },
+  {
+    year: '2022',
+    title: 'Global University Award',
+    company: 'UNSW Sydney',
+    description: 'Awarded the Global University Award for outstanding academic performance.',
+    type: 'milestone'
+  },
+  {
+    year: '2022 - 2026',
+    title: 'Bachelor of Advanced Computer Science (Honours)',
+    company: 'UNSW Sydney',
+    description: 'Majored in Computer Science and Engineering. Research focused on Robotic Computer Vision',
     type: 'education'
   },
   {
-    year: '2021',
-    title: 'Software Development Intern',
-    company: 'Innovation Labs',
-    description: 'Built internal tools for monitoring distributed systems performance.',
-    type: 'work'
+    year: '2019',
+    title: 'First Runner Up',
+    company: 'ACM ICPC Myanmar National Programming Contest',
+    description: 'Achieved first runner up among all universities in Myanmar.',
+    type: 'milestone'
   },
   {
-    year: '2017',
-    title: 'First Coding Project',
-    company: 'Personal Milestone',
-    description: 'Started my coding journey by building small automation scripts and web prototypes.',
+    year: '2019',
+    title: 'First Prize',
+    company: 'Myanmar Institute of Information Technology (MIIT)',
+    description: 'Achieved first prize, outperforming the entire cohort.',
     type: 'milestone'
+  },
+  {
+    year: '2017 - 2020',
+    title: 'Bachelor of Computer Science and Engineering',
+    company: 'Myanmar Institute of Information Technology (MIIT)',
+    description: 'Majored in Computer Science and Engineering.',
+    type: 'education'
   }
 ];
