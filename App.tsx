@@ -389,6 +389,8 @@ export default function App() {
         </div>
       </section>
 
+      {/* TODO: Skills Section */}
+
       {/* Footer */}
       <footer className="bg-slate-950 text-white py-20 px-6 overflow-hidden relative">
         <div className="absolute inset-0 bg-grid opacity-[0.02] pointer-events-none" />

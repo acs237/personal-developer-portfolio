@@ -1,6 +1,16 @@
 
 import { Project, Certification, JourneyItem } from './types';
 
+/**
+ * The videos that are used in the hero section.
+ * TODO: Later include:
+ * 1. Building a cloud integrated software architecture
+ * 2. computer vision
+ * 3. robotics
+ * 4. new wave (both my face and group photo)
+ * 5. vocallective
+ * 6. MSS
+ */
 export const HERO_VIDEOS: string[] = [
   '/assets/videos/AirBrb.mp4',
   '/assets/videos/Slackr.mp4',
@@ -79,10 +89,17 @@ export const JOURNEY: JourneyItem[] = [
     type: 'work'
   },
   {
+    year: '2025 Sep - Present',
+    title: 'Thesis Researcher',
+    company: 'UNSW Robotics Lab',
+    description: 'Researched on the use of computer vision in humanoid robot. Focus on pointing gesture recognition and target tracking.',
+    type: 'work'
+  },
+  {
     year: '2025 Sep - 2025 Dec',
     title: 'Casual Academic Tutor',
     company: 'UNSW Computer Science and Engineering',
-    description: 'Tutored students in Computer Vision course. Helped them understand the concepts and solve the problems.',
+    description: 'Tutored students in computer vision course. Helped them understand the concepts and solve the problems.',
     type: 'work'
   },
   {
