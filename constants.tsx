@@ -1,6 +1,12 @@
 
 import { Project, Certification, JourneyItem } from './types';
 
+export const HERO_VIDEOS: string[] = [
+  '/assets/videos/AirBrb.mp4',
+  '/assets/videos/Slackr.mp4',
+  '/assets/videos/PMKPortfolio.mp4'
+];
+
 export const PROJECTS: Project[] = [
   {
     id: '1',

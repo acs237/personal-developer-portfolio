@@ -18,7 +18,7 @@ import {
   Compass,
   CandyCane
 } from 'lucide-react';
-import { PROJECTS, CERTIFICATIONS, JOURNEY } from './constants';
+import { PROJECTS, CERTIFICATIONS, JOURNEY, HERO_VIDEOS } from './constants';
 import { GoogleGenAI } from '@google/genai';
 import { Message } from './types';
 
@@ -244,34 +244,95 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-32 px-6">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-100 rounded-full text-indigo-700 text-sm font-medium mb-8">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-            </span>
-            Open to Opportunities: Cloud Computing, DevOps, Solutions Architect, Computer Vision
+      <section className="relative pt-24 pb-32 px-6 overflow-hidden">
+        {/* Hero section: flex row, text left, video right */}
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto gap-10">
+          {/* Left: Hero text content */}
+          <div className="w-full md:w-1/2">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-100 rounded-full text-indigo-700 text-sm font-medium mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+              </span>
+              Open to Opportunities: Cloud Computing, DevOps, Solutions Architect, Computer Vision
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black font-display tracking-tighter text-indigo-700 mb-8 leading-[1.1]">
+              Aye Chan San
+            </h1>
+            <div className="max-w-3xl mx-auto space-y-4">
+              <p className="text-2xl font-semibold text-slate-900">
+                Bachelor of Advanced Computer Science (Honours)
+              </p>
+              <p className="text-2xl font-semibold text-slate-900">
+                UNSW Sydney
+              </p>
+              <p className="text-xl font-medium text-slate-600 leading-relaxed">
+                Final-year student with a strong academic record (WAM 84.19) and a passion for developing impactful software solutions.
+              </p>
+            </div>
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="#projects" className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold shadow-xl hover:bg-slate-800 hover:-translate-y-1 transition-all">
+                View My Work
+              </a>
+              <a href={`mailto:${EMAIL}`} className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-semibold shadow-sm hover:bg-slate-50 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                <Mail size={20} /> Get in Touch
+              </a>
+            </div>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black font-display tracking-tighter text-slate-900 mb-8 leading-[1.1]">
-            Aye Chan San
-          </h1>
-          <div className="max-w-3xl mx-auto space-y-4">
-            <p className="text-2xl font-medium text-slate-700">Bachelor of Advanced Computer Science (Honours)</p>
-            <p className="text-2xl font-medium text-slate-700">UNSW Sydney</p>
-            
-            <p className="text-xl text-slate-500 leading-relaxed">
-              Final-year student with a strong academic record (WAM 84.19) and a passion for developing impactful software solutions.
-            </p>
-          </div>
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#projects" className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-2xl font-semibold shadow-xl hover:bg-slate-800 hover:-translate-y-1 transition-all">
-              View My Work
-            </a>
-            <a href={`mailto:${EMAIL}`} className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-2xl font-semibold shadow-sm hover:bg-slate-50 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-              <Mail size={20} /> Get in Touch
-            </a>
-          </div>
+          {/* Right: Video visual */}
+          {(() => {
+            // State and logic for cycling videos in infinite loop
+            const [currentHeroVideo, setCurrentHeroVideo] = React.useState(0);
+            const videoRefs = React.useRef<HTMLVideoElement[]>([]);
+
+            React.useEffect(() => {
+              videoRefs.current = videoRefs.current.slice(0, HERO_VIDEOS.length);
+            }, [HERO_VIDEOS.length]);
+
+            React.useEffect(() => {
+              const handleEnded = () => {
+                setCurrentHeroVideo((prev) => (prev + 1) % HERO_VIDEOS.length);
+              };
+              const videoEl = videoRefs.current[currentHeroVideo];
+              if (videoEl) {
+                videoEl.addEventListener("ended", handleEnded);
+                videoEl.currentTime = 0;
+                videoEl.play().catch(() => {});
+              }
+              return () => {
+                if (videoEl) videoEl.removeEventListener("ended", handleEnded);
+              };
+            }, [currentHeroVideo, HERO_VIDEOS.length]);
+
+            return (
+              <div className="mt-12 md:mt-0 md:ml-10 w-full md:w-[380px] lg:w-[480px] h-[220px] md:h-[320px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900/80 flex items-center justify-center relative">
+                {HERO_VIDEOS.map((src, idx) => (
+                  <video
+                    key={src}
+                    ref={el => {
+                      videoRefs.current[idx] = el!;
+                    }}
+                    className={`absolute w-full h-full object-cover transition-opacity duration-700 ${
+                      idx === currentHeroVideo ? "opacity-85" : "opacity-0"
+                    }`}
+                    src={src}
+                    autoPlay={idx === currentHeroVideo}
+                    muted
+                    loop={false}
+                    playsInline
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    style={{
+                      filter: "brightness(0.95) grayscale(0.15)", // kept color styling, but removed blur
+                      zIndex: 0,
+                    }}
+                  />
+                ))}
+                {/* subtle glass overlay */}
+                <div className="absolute inset-0 bg-white/10 rounded-3xl" />
+              </div>
+            );
+          })()}
         </div>
       </section>
 
