@@ -59,6 +59,13 @@ export const CERTIFICATIONS: Certification[] = [
 
 export const JOURNEY: JourneyItem[] = [
   {
+    year: '2026 Jan - Present',
+    title: 'Software Developer',
+    company: 'Nemanta',
+    description: 'Developing a page where our technical services are demonstrated to potential clients. Helping them understand the services we offer.',
+    type: 'work'
+  },
+  {
     year: '2025 Dec',
     title: 'Lyrathon - Hackathon',
     company: 'Lyra',
@@ -71,6 +78,13 @@ export const JOURNEY: JourneyItem[] = [
     company: 'UNSW Computer Science and Engineering',
     description: 'Tutored students in Computer Vision course. Helped them understand the concepts and solve the problems.',
     type: 'work'
+  },
+  {
+    year: '2025 Sep',
+    title: 'Female Founder Program Participant ',
+    company: 'New Wave - UNSW Founders',
+    description: 'Participated in the Female Founder Program, where I learned about the startup ecosystem and the importance of diversity and inclusion.',
+    type: 'extracurricular'
   },
   {
     year: '2025 Aug - Present',
