@@ -16,9 +16,9 @@ import {
   Globe,
   Terminal,
   Compass,
-  CandyCane
+  CandyCane,
 } from 'lucide-react';
-import { PROJECTS, CERTIFICATIONS, JOURNEY, HERO_VIDEOS } from './constants';
+import { PROJECTS, CERTIFICATIONS, JOURNEY, SKILLS } from './constants';
 import { GoogleGenAI } from '@google/genai';
 import { Message } from './types';
 
@@ -54,10 +54,10 @@ const ProjectCard: React.FC<{ project: typeof PROJECTS[0], index: number }> = ({
             <Github size={18} />
             <span>Code</span>
           </a>
-          <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors">
+          {/* <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors">
             <ExternalLink size={18} />
             <span>Live Demo</span>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
@@ -92,7 +92,7 @@ const Timeline: React.FC = () => (
     {JOURNEY.map((item, idx) => (
       <div key={idx} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
         <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-[.is-active]:bg-indigo-500 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-          {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Terminal size={18} /> : item.type === 'milestone' ? <Zap size={18} /> : item.type === 'extracurricular' ? <CandyCane size={18} /> : <GraduationCap size={18} />}
+          {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Terminal size={18} /> : item.type === 'milestone' ? <Zap size={18} /> : <CandyCane size={18} />}
         </div>
         <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between space-x-2 mb-1">
@@ -233,6 +233,7 @@ export default function App() {
           </div>
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
             <a href="#projects" className="hover:text-indigo-600 transition-colors">Projects</a>
+            <a href="#skills" className="hover:text-indigo-600 transition-colors">Skills</a>
             <a href="#certs" className="hover:text-indigo-600 transition-colors">Certifications</a>
             <a href="#journey" className="hover:text-indigo-600 transition-colors">My Journey</a>
           </div>
@@ -245,10 +246,8 @@ export default function App() {
 
       {/* Hero Section */}
       <section className="relative pt-24 pb-32 px-6 overflow-hidden">
-        {/* Hero section: flex row, text left, video right */}
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto gap-10">
-          {/* Left: Hero text content */}
-          <div className="w-full md:w-1/2">
+        <div className="relative z-10 flex flex-col items-center justify-center max-w-7xl mx-auto">
+          <div className="w-full text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 border border-indigo-100 rounded-full text-indigo-700 text-sm font-medium mb-8">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
@@ -279,60 +278,6 @@ export default function App() {
               </a>
             </div>
           </div>
-          {/* Right: Video visual */}
-          {(() => {
-            // State and logic for cycling videos in infinite loop
-            const [currentHeroVideo, setCurrentHeroVideo] = React.useState(0);
-            const videoRefs = React.useRef<HTMLVideoElement[]>([]);
-
-            React.useEffect(() => {
-              videoRefs.current = videoRefs.current.slice(0, HERO_VIDEOS.length);
-            }, [HERO_VIDEOS.length]);
-
-            React.useEffect(() => {
-              const handleEnded = () => {
-                setCurrentHeroVideo((prev) => (prev + 1) % HERO_VIDEOS.length);
-              };
-              const videoEl = videoRefs.current[currentHeroVideo];
-              if (videoEl) {
-                videoEl.addEventListener("ended", handleEnded);
-                videoEl.currentTime = 0;
-                videoEl.play().catch(() => {});
-              }
-              return () => {
-                if (videoEl) videoEl.removeEventListener("ended", handleEnded);
-              };
-            }, [currentHeroVideo, HERO_VIDEOS.length]);
-
-            return (
-              <div className="mt-12 md:mt-0 md:ml-10 w-full md:w-[380px] lg:w-[480px] h-[220px] md:h-[320px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900/80 flex items-center justify-center relative">
-                {HERO_VIDEOS.map((src, idx) => (
-                  <video
-                    key={src}
-                    ref={el => {
-                      videoRefs.current[idx] = el!;
-                    }}
-                    className={`absolute w-full h-full object-cover transition-opacity duration-700 ${
-                      idx === currentHeroVideo ? "opacity-85" : "opacity-0"
-                    }`}
-                    src={src}
-                    autoPlay={idx === currentHeroVideo}
-                    muted
-                    loop={false}
-                    playsInline
-                    tabIndex={-1}
-                    aria-hidden="true"
-                    style={{
-                      filter: "brightness(0.95) grayscale(0.15)", // kept color styling, but removed blur
-                      zIndex: 0,
-                    }}
-                  />
-                ))}
-                {/* subtle glass overlay */}
-                <div className="absolute inset-0 bg-white/10 rounded-3xl" />
-              </div>
-            );
-          })()}
         </div>
       </section>
 
@@ -389,7 +334,26 @@ export default function App() {
         </div>
       </section>
 
-      {/* TODO: Skills Section */}
+      {/* Skills Section */}
+      <section id="skills" className="py-32 px-6 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">Technical Skills</h2>
+            <p className="text-lg text-slate-600">Technologies and tools I work with to build modern applications.</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-5xl mx-auto">
+            {SKILLS.map(skill => (
+              <div key={skill.id} className="group flex flex-col items-center p-6 rounded-2xl bg-white border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="w-16 h-16 mb-4 flex items-center justify-center">
+                  <img src={skill.icon} alt={skill.name} className="w-full h-full object-contain" />
+                </div>
+                <span className="text-sm font-semibold text-slate-700">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="bg-slate-950 text-white py-20 px-6 overflow-hidden relative">

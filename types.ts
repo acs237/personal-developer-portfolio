@@ -20,6 +20,12 @@ export interface Certification {
   verifyUrl: string;
 }
 
+export interface Skill {
+  id: string;
+  name: string;
+  icon: string;
+}
+
 export interface JourneyItem {
   year: string;
   title: string;
