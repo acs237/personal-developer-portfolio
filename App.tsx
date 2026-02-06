@@ -24,20 +24,57 @@ import { Message } from './types';
 
 // --- Sub-components ---
 
-const ProjectCard: React.FC<{ project: typeof PROJECTS[0], index: number }> = ({ project, index }) => {
+const ProjectCard: React.FC<{ project: typeof PROJECTS[0], index: number, setIsExpanded: (isExpanded: boolean) => void, isExpanded: boolean }> = ({ project, index, setIsExpanded, isExpanded }) => {
   const isEven = index % 2 === 0;
   return (
     <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center py-16 group`}>
       <div className="w-full lg:w-3/5 relative overflow-hidden rounded-2xl shadow-2xl bg-slate-900 border border-slate-800">
-        <video 
-          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-        >
-          <source src={project.videoUrl} type="video/mp4" />
-        </video>
+        {/* TODO: make the video expandable and playable on click */}
+        {/* Expandable/playable video */}
+        <div className="relative w-full h-full cursor-pointer group" onClick={() => setIsExpanded(true)}>
+          <video 
+            className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            onClick={e => {
+              // Prevent bubbling to outer div if already expanded
+              if (isExpanded) e.stopPropagation();
+            }}
+          >
+            <source src={project.videoUrl} type="video/mp4" />
+          </video>
+          
+        </div>
+
+        {/* Modal for expanded video */}
+        {typeof window !== "undefined" && isExpanded && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
+            onClick={() => setIsExpanded(false)}
+          >
+            <div
+              className="relative w-full max-w-4xl px-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className="absolute top-2 right-2 z-20 p-2 bg-white/80 rounded-full hover:bg-white"
+                onClick={() => setIsExpanded(false)}
+                aria-label="Close expanded video"
+              >
+                <X size={24} />
+              </button>
+              <video
+                className="w-full h-auto rounded-2xl shadow-2xl bg-black"
+                controls
+                autoPlay
+              >
+                <source src={project.videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        )}
         <div className="absolute bottom-4 left-4 flex gap-2">
           {project.tags.map(tag => (
             <span key={tag} className="px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs rounded-full border border-white/10">
@@ -217,6 +254,7 @@ export default function App() {
   const GITHUB_URL = "https://github.com/acs237";
   const LINKEDIN_URL = "https://www.linkedin.com/in/aye-chan-san/";
   const EMAIL = "acs23072000@gmail.com";
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div className="min-h-screen relative">
@@ -233,9 +271,9 @@ export default function App() {
           </div>
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600">
             <a href="#projects" className="hover:text-indigo-600 transition-colors">Projects</a>
-            <a href="#skills" className="hover:text-indigo-600 transition-colors">Skills</a>
             <a href="#certs" className="hover:text-indigo-600 transition-colors">Certifications</a>
             <a href="#journey" className="hover:text-indigo-600 transition-colors">My Journey</a>
+            <a href="#skills" className="hover:text-indigo-600 transition-colors">Skills</a>
           </div>
           <div className="flex gap-4">
             <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="p-2 text-slate-500 hover:text-slate-900 transition-colors"><Github size={20} /></a>
@@ -290,7 +328,7 @@ export default function App() {
           </div>
           <div className="divide-y divide-slate-100">
             {PROJECTS.map((project, idx) => (
-              <ProjectCard key={project.id} project={project} index={idx} />
+              <ProjectCard key={project.id} project={project} index={idx} setIsExpanded={setIsExpanded} isExpanded={isExpanded} />
             ))}
           </div>
         </div>
@@ -373,7 +411,7 @@ export default function App() {
         </div>
       </footer>
 
-      <AIChat />
+      {/* <AIChat /> */}
     </div>
   );
 }
