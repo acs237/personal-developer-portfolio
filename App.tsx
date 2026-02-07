@@ -17,6 +17,7 @@ import {
   Terminal,
   Compass,
   CandyCane,
+  Pickaxe,
 } from 'lucide-react';
 import { PROJECTS, CERTIFICATIONS, JOURNEY, SKILLS } from './constants';
 import { GoogleGenAI } from '@google/genai';
@@ -124,25 +125,46 @@ const CertificationBadge: React.FC<{ cert: typeof CERTIFICATIONS[0] }> = ({ cert
   </div>
 );
 
-const Timeline: React.FC = () => (
-  <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-    {JOURNEY.map((item, idx) => (
-      <div key={idx} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
-        <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-[.is-active]:bg-indigo-500 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-          {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Terminal size={18} /> : item.type === 'milestone' ? <Zap size={18} /> : <CandyCane size={18} />}
-        </div>
-        <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
-          <div className="flex items-center justify-between space-x-2 mb-1">
-            <div className="font-bold text-slate-900">{item.title}</div>
-            <time className="font-medium text-indigo-500 text-sm">{item.year}</time>
+type JourneyCategory = 'all' | 'education' | 'work' | 'milestone' | 'extracurricular';
+
+const JOURNEY_CATEGORIES: { id: JourneyCategory; label: string; icon: React.ReactNode }[] = [
+  { id: 'all', label: 'All', icon: <Globe size={18} /> },
+  { id: 'work', label: 'Work', icon: <Pickaxe size={18} /> },
+  { id: 'education', label: 'Education', icon: <Compass size={18} /> },
+  { id: 'extracurricular', label: 'Extracurricular', icon: <CandyCane size={18} /> },
+  { id: 'milestone', label: 'Milestones', icon: <Zap size={18} /> },
+];
+
+const Timeline: React.FC<{ category: JourneyCategory }> = ({ category }) => {
+  const filteredItems = category === 'all'
+    ? JOURNEY
+    : JOURNEY.filter(item => item.type === category);
+
+  return (
+    <div className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+      {filteredItems.map((item, idx) => (
+        <div key={idx} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active`}>
+          <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-200 group-[.is-active]:bg-indigo-500 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+            {item.type === 'education' ? <Compass size={18} /> : item.type === 'work' ? <Pickaxe size={18} /> : item.type === 'milestone' ? <Zap size={18} /> : <CandyCane size={18} />}
           </div>
-          <div className="text-slate-500 text-sm font-medium mb-2">{item.company}</div>
-          <div className="text-slate-600 leading-relaxed">{item.description}</div>
+          <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between space-x-2 mb-1">
+              <div className="font-bold text-slate-900">{item.title}</div>
+              <time className="font-medium text-indigo-500 text-sm">{item.year}</time>
+            </div>
+            <div className="text-slate-500 text-sm font-medium mb-2">{item.company}</div>
+            <div className="text-slate-600 leading-relaxed">{item.description}</div>
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+      {filteredItems.length === 0 && (
+        <div className="text-center py-12 text-slate-500">
+          No items in this category yet.
+        </div>
+      )}
+    </div>
+  );
+};
 
 const AIChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -255,6 +277,7 @@ export default function App() {
   const LINKEDIN_URL = "https://www.linkedin.com/in/aye-chan-san/";
   const EMAIL = "acs23072000@gmail.com";
   const [isExpanded, setIsExpanded] = useState(false);
+  const [journeyCategory, setJourneyCategory] = useState<JourneyCategory>('all');
 
   return (
     <div className="min-h-screen relative">
@@ -364,11 +387,27 @@ export default function App() {
       {/* Journey Section */}
       <section id="journey" className="py-32 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-slate-900 mb-4">My Journey</h2>
             <p className="text-lg text-slate-600">A timeline of my professional growth, academic milestones, and significant engineering accomplishments.</p>
           </div>
-          <Timeline />
+          <div className="flex flex-wrap justify-center gap-2 mb-16">
+            {JOURNEY_CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setJourneyCategory(cat.id)}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all ${
+                  journeyCategory === cat.id
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+              >
+                {cat.icon}
+                {cat.label}
+              </button>
+            ))}
+          </div>
+          <Timeline category={journeyCategory} />
         </div>
       </section>
 

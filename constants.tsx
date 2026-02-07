@@ -189,20 +189,20 @@ export const JOURNEY: JourneyItem[] = [
     description: 'Tutored students in computer vision course. Helped them understand the concepts and solve the problems.',
     type: 'work'
   },
-  /* {
+  {
     year: '2025 Sep',
     title: 'Female Founder Program Participant ',
     company: 'New Wave - UNSW Founders',
     description: 'Participated in the Female Founder Program, where I learned about the startup ecosystem and the importance of diversity and inclusion.',
     type: 'extracurricular'
-  }, */
-  /* {
+  },
+  {
     year: '2025 Aug - Present',
     title: 'Acapella Group - Alto Vocalist',
     company: 'UNSW Vocallective',
     description: 'Joined the acapella group as an alto vocalist. Practiced and performed various songs with the group.',
     type: 'extracurricular'
-  }, */
+  },
   {
     year: '2025 Jun - 2025 Aug',
     title: 'Internship - Software Development',
@@ -210,20 +210,20 @@ export const JOURNEY: JourneyItem[] = [
     description: 'Automate the job application process for job seekers. Helped them find the best jobs for them.',
     type: 'work'
   },
-  /* {
+  {
     year: '2025 May - Present',
     title: 'Retail Operator',
     company: 'Australia Post',
     description: 'Handle customer inquiries and transactions. Constantly learning and growing in the field of customer service and retail operations.',
     type: 'work'
-  }, */
-  /* {
+  },
+  {
     year: '2023 Oct - 2025 Oct',
     title: 'Executive Committee Member',
     company: 'UNSW Myanmar Students\' Society',
     description: 'Organised various events for the Myanmar community at UNSW. Helped them integrate into the Australian society.',
     type: 'extracurricular'
-  }, */
+  },
   {
     year: '2022',
     title: 'Global University Award',
@@ -238,25 +238,25 @@ export const JOURNEY: JourneyItem[] = [
     description: 'Majored in Computer Science and Engineering. Research focused on Robotic Computer Vision',
     type: 'education'
   },
-  /* {
+  {
     year: '2019',
     title: 'First Runner Up',
     company: 'ACM ICPC Myanmar National Programming Contest',
     description: 'Achieved first runner up among all universities in Myanmar.',
     type: 'milestone'
-  }, */
-  /* {
+  },
+  {
     year: '2019',
     title: 'First Prize',
     company: 'Myanmar Institute of Information Technology (MIIT)',
     description: 'Achieved first prize, outperforming the entire cohort.',
     type: 'milestone'
-  }, */
-  /* {
+  },
+  {
     year: '2017 - 2020',
     title: 'Bachelor of Computer Science and Engineering',
     company: 'Myanmar Institute of Information Technology (MIIT)',
     description: 'Majored in Computer Science and Engineering.',
     type: 'education'
-  } */
+  }
 ];
